@@ -1,0 +1,258 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Joel Sabillon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: #0d0d0d;
+      color: #e0e0e0;
+    }
+
+    @keyframes glitch {
+      0%,100% { clip-path: inset(0 0 90% 0); transform: translate(-3px, 0); }
+      20%     { clip-path: inset(40% 0 40% 0); transform: translate(3px, 0); }
+      40%     { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 0); }
+      60%     { clip-path: inset(20% 0 60% 0); transform: translate(2px, 0); }
+      80%     { clip-path: inset(80% 0 5% 0); transform: translate(-3px, 0); }
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 32px 100px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #444;
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      transition: color 0.15s;
+    }
+    .back:hover { color: #ff3333; }
+
+    .page-title {
+      font-family: 'Creepster', cursive;
+      font-size: clamp(48px, 7vw, 80px);
+      color: #e8e8e8;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 18px #ff2222, 0 0 40px #ff0000, 4px 4px 0 #440000;
+      margin-bottom: 48px;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 1px solid #1a1a1a;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+    .project-row:first-child { border-top: 1px solid #1a1a1a; }
+
+    .project-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: #333;
+      min-width: 28px;
+      transition: color 0.15s;
+    }
+
+    .project-body { flex: 1; }
+
+    .project-title {
+      font-family: 'Creepster', cursive;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: #e0e0e0;
+      white-space: nowrap;
+      transition: color 0.15s, text-shadow 0.15s;
+    }
+
+    .project-desc {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #444;
+      margin-top: 4px;
+      line-height: 1.5;
+      letter-spacing: 0.12em;
+      transition: color 0.15s;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      min-width: 120px;
+    }
+
+    .tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.05em;
+      transition: color 0.15s;
+    }
+
+    .project-arrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      color: #222;
+      margin-left: 8px;
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .project-row:hover .project-num { color: #ff3333; }
+    .project-row:hover .project-title {
+      color: #ff4444;
+      text-shadow: 0 0 10px #ff2222, 0 0 24px rgba(255,0,0,0.4);
+    }
+    .project-row:hover .project-desc { color: #666; }
+    .project-row:hover .tag { color: #ff3333; }
+    .project-row:hover .project-arrow {
+      color: #ff3333;
+      transform: translateX(4px);
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 14px 0;
+      background: #0d0d0d;
+    }
+
+    .footer-link {
+      position: relative;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .link-label {
+      font-family: 'Creepster', cursive;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      color: #e0e0e0;
+      display: block;
+      transition: text-shadow 0.1s;
+    }
+
+    .footer-link:hover .link-label {
+      text-shadow: 0 0 10px #ff2222, 0 0 25px #ff0000;
+    }
+
+    .g1, .g2 {
+      font-family: 'Creepster', cursive;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.05s;
+    }
+
+    .g1 { color: #ff0033; animation: glitch 0.4s steps(1) infinite; }
+    .g2 { color: #00ffee; animation: glitch 0.4s steps(1) infinite 0.1s; }
+
+    .footer-link:hover .g1 { opacity: 1; }
+    .footer-link:hover .g2 { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a class="back" href="/">← back</a>
+    <div class="page-title">PROJECTS</div>
+
+    <div class="projects-list">
+      <a class="project-row" href="http://getbrowsersize.com/" target="_blank">
+        <span class="project-num">01</span>
+        <div class="project-body">
+          <div class="project-title">browser-size</div>
+          <div class="project-desc">A simple site that detects browser width and height with helpful copy-to-clipboard buttons.</div>
+        </div>
+        <div class="project-tags">
+          <span class="tag">CSS</span>
+          <span class="tag">HTML</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <span class="project-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="footer">
+    <a class="footer-link" href="/">
+      <span class="link-label">Home</span>
+      <span class="g1">Home</span>
+      <span class="g2">Home</span>
+    </a>
+    <a class="footer-link" href="https://github.com/supersabillon" target="_blank">
+      <span class="link-label">GitHub</span>
+      <span class="g1">GitHub</span>
+      <span class="g2">GitHub</span>
+    </a>
+    <a class="footer-link" href="https://instagram.com/supersabillon" target="_blank">
+      <span class="link-label">Instagram</span>
+      <span class="g1">Instagram</span>
+      <span class="g2">Instagram</span>
+    </a>
+    <a class="footer-link" href="https://x.com/supersabillon" target="_blank">
+      <span class="link-label">X</span>
+      <span class="g1">X</span>
+      <span class="g2">X</span>
+    </a>
+    <a class="footer-link" href="/projects">
+      <span class="link-label">Projects</span>
+      <span class="g1">Projects</span>
+      <span class="g2">Projects</span>
+    </a>
+  </nav>
+
+  <script>
+    const titleEl = document.querySelector('.page-title');
+    document.addEventListener('mousemove', (e) => {
+      const rect = titleEl.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const ox = (-dx / dist * 6).toFixed(1);
+      const oy = (-dy / dist * 6).toFixed(1);
+      titleEl.style.textShadow = `0 0 18px #ff2222, 0 0 40px #ff0000, ${ox}px ${oy}px 0 #440000`;
+    });
+  </script>
+</body>
+</html>
